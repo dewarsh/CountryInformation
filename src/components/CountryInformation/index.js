@@ -6,9 +6,7 @@ import "./style.css";
 class CountryInformation extends Component {
 
     state = {
-        countryList: [],
-        countryFlag:"",
-
+        countryList: []
     }
 
     onCountryInputChange = e => {
@@ -18,12 +16,9 @@ class CountryInformation extends Component {
             this.setState({countryList: res.data});
         });
         this.setState({countryList:[]})
-        console.log(e);
-        console.log(e.target.value);
     }
 
     render(){
-        console.log(this.state.countryList.length);
         return (
             <div className="countryInformation">
                 Country Information <br/>
