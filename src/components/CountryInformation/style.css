@@ -1,3 +1,7 @@
 .countryInformation{
     margin-top: 20px;
 }
+.flag{
+    width: 25%;
+    margin: auto;
+}

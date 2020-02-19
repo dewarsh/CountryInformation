@@ -6,10 +6,15 @@ import "./style.css";
 class CountryInformation extends Component {
 
     state = {
-        countryList: []
+        countryList: [],
+        imageUrl: "",
+        value: ""
     }
 
     onCountryInputChange = e => {
+        this.setState({
+            value: e.target.value
+        })
         axios.get(`https://restcountries.eu/rest/v2/name/${e.target.value}`)
         .then(res => {
             console.log(res);
@@ -18,14 +23,25 @@ class CountryInformation extends Component {
         this.setState({countryList:[]})
     }
 
+    getDetails = (e) => {
+        const buttonValue = e.target;
+        console.log(buttonValue.textContent);
+        axios.get(`https://restcountries.eu/rest/v2/name/${buttonValue.textContent}?fullText=true`)
+        .then(res => {
+            console.log(res.data);
+            this.setState({imageUrl: res.data[0].flag})
+        })
+    }
+
     render(){
         return (
             <div className="countryInformation">
-                Country Information <br/>
-                Please search for the country name<br/> <br/>
-
-            <input type="text" onChange={this.onCountryInputChange}/>   
-            <CountryList countryList={this.state.countryList} />
+            <h1>Country Information</h1>
+            <p>Please search for the country name</p>
+            <input type="text" value={this.state.value} onChange={this.onCountryInputChange} pattern="[A-Z][a-z]" title="Please enter only letters"/>
+            <p>Click any country button to view the flag</p>   
+            <img alt="Flag" src={this.state.imageUrl} className="flag"/> <br/>
+            <CountryList countryList={this.state.countryList} onAction={this.getDetails}/>
             </div>
         );
     }
