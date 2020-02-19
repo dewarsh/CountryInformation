@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CountryList from '../CountryList';
+import Overwrite from '../Overwrite'
 import axios from 'axios';
 import "./style.css";
 
@@ -33,6 +34,12 @@ class CountryInformation extends Component {
         })
     }
 
+    overwrite = () => {
+        this.setState({imageUrl:""})
+        this.setState({value:""})
+        this.setState({countryList:[]})
+    }
+
     render(){
         return (
             <div className="countryInformation">
@@ -41,6 +48,7 @@ class CountryInformation extends Component {
             <input type="text" value={this.state.value} onChange={this.onCountryInputChange} pattern="[A-Z][a-z]" title="Please enter only letters"/>
             <p>Click any country button to view the flag</p>   
             <img alt="Flag" src={this.state.imageUrl} className="flag"/> <br/>
+            <Overwrite onAction={this.overwrite}/> <hr/>
             <CountryList countryList={this.state.countryList} onAction={this.getDetails}/>
             </div>
         );
